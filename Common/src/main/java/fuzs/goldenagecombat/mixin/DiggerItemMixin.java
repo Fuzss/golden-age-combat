@@ -12,7 +12,7 @@ import net.minecraft.world.item.TieredItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DiggerItem.class)
 abstract class DiggerItemMixin extends TieredItem {
@@ -21,10 +21,10 @@ abstract class DiggerItemMixin extends TieredItem {
         super(tier, properties);
     }
 
-    @Inject(method = "hurtEnemy", at = @At("HEAD"), cancellable = true)
-    public void hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> callback) {
+    @Inject(method = "postHurtEnemy", at = @At("HEAD"), cancellable = true)
+    public void postHurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity attacker, CallbackInfo callback) {
         if (!GoldenAgeCombat.CONFIG.get(CommonConfig.class).noItemDurabilityPenalty) return;
         ItemHelper.hurtAndBreak(itemStack, 1, attacker, EquipmentSlot.MAINHAND);
-        callback.setReturnValue(true);
+        callback.cancel();
     }
 }
