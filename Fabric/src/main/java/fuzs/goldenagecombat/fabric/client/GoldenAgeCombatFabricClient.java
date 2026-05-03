@@ -1,7 +1,7 @@
 package fuzs.goldenagecombat.fabric.client;
 
-import fuzs.goldenagecombat.GoldenAgeCombat;
-import fuzs.goldenagecombat.client.GoldenAgeCombatClient;
+import fuzs.goldenagecombat.common.GoldenAgeCombat;
+import fuzs.goldenagecombat.common.client.GoldenAgeCombatClient;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import net.fabricmc.api.ClientModInitializer;
 

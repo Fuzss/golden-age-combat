@@ -1,0 +1,70 @@
+package fuzs.goldenagecombat.common.client.handler;
+
+import fuzs.goldenagecombat.common.GoldenAgeCombat;
+import fuzs.goldenagecombat.common.config.CommonConfig;
+import fuzs.goldenagecombat.common.config.ServerConfig;
+import net.minecraft.client.AttackIndicatorStatus;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.OptionsList;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
+import net.minecraft.network.chat.Component;
+import org.jspecify.annotations.Nullable;
+
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
+
+public class ClientCooldownHandler {
+    private static final Component ATTACK_INDICATOR_TOOLTIP = Component.literal(String.format(
+            "Attack Indicator has been disabled by %s mod.",
+            GoldenAgeCombat.MOD_NAME));
+
+    @Nullable
+    private static AttackIndicatorStatus attackIndicator;
+
+    public static void onBeforeRenderGui(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+        if (!GoldenAgeCombat.CONFIG.get(CommonConfig.class).removeAttackCooldown) return;
+        // this will mostly just remove the attack indicator, except for one niche case when looking at an entity
+        // just for that reason the whole indicator is also disabled later on
+        // indicator would otherwise render when looking at an entity, even when there is no cooldown
+        if (attackIndicator == null) {
+            Options options = Minecraft.getInstance().options;
+            attackIndicator = options.attackIndicator().get();
+            options.attackIndicator().set(AttackIndicatorStatus.OFF);
+        }
+    }
+
+    public static void onAfterRenderGui(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+        if (!GoldenAgeCombat.CONFIG.get(CommonConfig.class).removeAttackCooldown) return;
+        // reset to old value; don't just leave this disabled as it'll change the vanilla setting permanently in options.txt, which no mod should do imo
+        if (attackIndicator != null) {
+            Minecraft.getInstance().options.attackIndicator().set(attackIndicator);
+            attackIndicator = null;
+        }
+    }
+
+    public static void onAfterInit(VideoSettingsScreen screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
+        if (!GoldenAgeCombat.CONFIG.getHolder(ServerConfig.class).isAvailable() || !GoldenAgeCombat.CONFIG.get(
+                CommonConfig.class).removeAttackCooldown) {
+            return;
+        }
+        // disables the attack indicator option button in the video settings screen
+        screen.children()
+                .stream()
+                .filter(OptionsList.class::isInstance)
+                .findAny()
+                .map(OptionsList.class::cast)
+                .map((OptionsList optionsList) -> {
+                    return optionsList.findOption(screen.minecraft.options.attackIndicator());
+                })
+                .ifPresent((AbstractWidget widget) -> {
+                    widget.active = false;
+                    widget.setTooltip(Tooltip.create(ATTACK_INDICATOR_TOOLTIP));
+                });
+    }
+}
