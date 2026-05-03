@@ -1,9 +1,9 @@
 package fuzs.goldenagecombat.client;
 
 import fuzs.goldenagecombat.client.handler.ClientCooldownHandler;
-import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
-import fuzs.puzzleslib.api.client.event.v1.gui.RenderGuiEvents;
-import fuzs.puzzleslib.api.client.event.v1.gui.ScreenEvents;
+import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
+import fuzs.puzzleslib.common.api.client.event.v1.gui.RenderGuiEvents;
+import fuzs.puzzleslib.common.api.client.event.v1.gui.ScreenEvents;
 import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
 
 public class GoldenAgeCombatClient implements ClientModConstructor {

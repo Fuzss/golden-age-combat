@@ -7,7 +7,7 @@ import net.minecraft.client.AttackIndicatorStatus;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.components.Tooltip;
@@ -27,7 +27,7 @@ public class ClientCooldownHandler {
     @Nullable
     private static AttackIndicatorStatus attackIndicator;
 
-    public static void onBeforeRenderGui(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public static void onBeforeRenderGui(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         if (!GoldenAgeCombat.CONFIG.get(CommonConfig.class).removeAttackCooldown) return;
         // this will mostly just remove the attack indicator, except for one niche case when looking at an entity
         // just for that reason the whole indicator is also disabled later on
@@ -39,7 +39,7 @@ public class ClientCooldownHandler {
         }
     }
 
-    public static void onAfterRenderGui(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public static void onAfterRenderGui(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         if (!GoldenAgeCombat.CONFIG.get(CommonConfig.class).removeAttackCooldown) return;
         // reset to old value; don't just leave this disabled as it'll change the vanilla setting permanently in options.txt, which no mod should do imo
         if (attackIndicator != null) {
@@ -48,7 +48,7 @@ public class ClientCooldownHandler {
         }
     }
 
-    public static void onAfterInit(Minecraft minecraft, VideoSettingsScreen screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
+    public static void onAfterInit(VideoSettingsScreen screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
         if (!GoldenAgeCombat.CONFIG.getHolder(ServerConfig.class).isAvailable() || !GoldenAgeCombat.CONFIG.get(
                 CommonConfig.class).removeAttackCooldown) {
             return;
@@ -59,8 +59,10 @@ public class ClientCooldownHandler {
                 .filter(OptionsList.class::isInstance)
                 .findAny()
                 .map(OptionsList.class::cast)
-                .map(optionsList -> optionsList.findOption(minecraft.options.attackIndicator()))
-                .ifPresent(widget -> {
+                .map((OptionsList optionsList) -> {
+                    return optionsList.findOption(screen.minecraft.options.attackIndicator());
+                })
+                .ifPresent((AbstractWidget widget) -> {
                     widget.active = false;
                     widget.setTooltip(Tooltip.create(ATTACK_INDICATOR_TOOLTIP));
                 });

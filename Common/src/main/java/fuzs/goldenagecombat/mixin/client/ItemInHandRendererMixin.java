@@ -24,36 +24,35 @@ abstract class ItemInHandRendererMixin {
     private Minecraft minecraft;
 
     @Inject(method = "itemUsed", at = @At("HEAD"), cancellable = true)
-    public void itemUsed(InteractionHand interactionHand, CallbackInfo callback) {
+    public void itemUsed(InteractionHand hand, CallbackInfo callback) {
         if (!GoldenAgeCombat.CONFIG.get(ClientConfig.class).noReequipWhenUsing) {
             return;
         }
 
         // don't play the re-equip animation when beginning to use an item, like shield or bow
-        if (this.minecraft.player.isUsingItem() && this.minecraft.player.getUsedItemHand() == interactionHand) {
+        if (this.minecraft.player.isUsingItem() && this.minecraft.player.getUsedItemHand() == hand) {
             callback.cancel();
         }
     }
 
     @Inject(method = "renderArmWithItem",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;applyItemArmTransform(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V",
-                    shift = At.Shift.AFTER))
-    private void renderArmWithItem(AbstractClientPlayer player, float partialTicks, float pitch, InteractionHand interactionHand, float swingProgress, ItemStack stack, float equippedProgress, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int combinedLight, CallbackInfo callback) {
+                     target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;applyItemArmTransform(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V",
+                     shift = At.Shift.AFTER))
+    private void renderArmWithItem(AbstractClientPlayer player, float partialTicks, float xRot, InteractionHand hand, float attack, ItemStack itemStack, float inverseArmHeight, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, CallbackInfo callback) {
         if (!GoldenAgeCombat.CONFIG.get(ClientConfig.class).interactAnimations) {
             return;
         }
-        
-        if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0
-                && player.getUsedItemHand() == interactionHand) {
-            HumanoidArm humanoidArm = interactionHand == InteractionHand.MAIN_HAND ? player.getMainArm() :
-                    player.getMainArm().getOpposite();
-            this.applyItemArmAttackTransform(poseStack, humanoidArm, swingProgress);
+
+        if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0 && player.getUsedItemHand() == hand) {
+            HumanoidArm humanoidArm =
+                    hand == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite();
+            this.applyItemArmAttackTransform(poseStack, humanoidArm, attack);
         }
     }
 
     @Shadow
-    private void applyItemArmAttackTransform(PoseStack poseStack, HumanoidArm hand, float swingProgress) {
+    private void applyItemArmAttackTransform(PoseStack poseStack, HumanoidArm arm, float attackValue) {
         throw new RuntimeException();
     }
 }

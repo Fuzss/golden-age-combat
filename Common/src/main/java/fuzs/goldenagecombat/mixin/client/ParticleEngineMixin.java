@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 abstract class ParticleEngineMixin {
 
     @Inject(method = "makeParticle", at = @At("HEAD"), cancellable = true)
-    private <T extends ParticleOptions> void makeParticle(T particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> callback) {
-        if (GoldenAgeCombat.CONFIG.get(ServerConfig.class).canceledParticles.contains(particleData.getType())) {
+    private <T extends ParticleOptions> void makeParticle(T options, double x, double y, double z, double xa, double ya, double za, CallbackInfoReturnable<Particle> callback) {
+        if (GoldenAgeCombat.CONFIG.get(ServerConfig.class).canceledParticles.contains(options.getType())) {
             callback.setReturnValue(null);
         }
     }

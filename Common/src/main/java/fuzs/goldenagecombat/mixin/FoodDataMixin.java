@@ -2,6 +2,7 @@ package fuzs.goldenagecombat.mixin;
 
 import fuzs.goldenagecombat.GoldenAgeCombat;
 import fuzs.goldenagecombat.config.ServerConfig;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.food.FoodData;
@@ -24,12 +25,13 @@ abstract class FoodDataMixin {
     private int tickTimer;
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    public void tick(ServerPlayer serverPlayer, CallbackInfo callback) {
+    public void tick(ServerPlayer player, CallbackInfo callback) {
         if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).legacyFoodMechanics) {
             return;
         }
 
-        Difficulty difficulty = serverPlayer.level().getDifficulty();
+        ServerLevel level = player.level();
+        Difficulty difficulty = level.getDifficulty();
         if (this.exhaustionLevel > 4.0F) {
             this.exhaustionLevel -= 4.0F;
             if (this.saturationLevel > 0.0F) {
@@ -39,20 +41,20 @@ abstract class FoodDataMixin {
             }
         }
 
-        boolean flag = serverPlayer.level().getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION);
-        if (flag && this.foodLevel >= 18 && serverPlayer.isHurt()) {
+        boolean naturalRegen = level.getGameRules().get(GameRules.NATURAL_HEALTH_REGENERATION);
+        if (naturalRegen && this.foodLevel >= 18 && player.isHurt()) {
             ++this.tickTimer;
             if (this.tickTimer >= 80) {
-                serverPlayer.heal(1.0F);
+                player.heal(1.0F);
                 this.addExhaustion(3.0F);
                 this.tickTimer = 0;
             }
         } else if (this.foodLevel <= 0) {
             ++this.tickTimer;
             if (this.tickTimer >= 80) {
-                if (serverPlayer.getHealth() > 10.0F || difficulty == Difficulty.HARD
-                        || serverPlayer.getHealth() > 1.0F && difficulty == Difficulty.NORMAL) {
-                    serverPlayer.hurt(serverPlayer.damageSources().starve(), 1.0F);
+                if (player.getHealth() > 10.0F || difficulty == Difficulty.HARD
+                        || player.getHealth() > 1.0F && difficulty == Difficulty.NORMAL) {
+                    player.hurtServer(level, player.damageSources().starve(), 1.0F);
                 }
                 this.tickTimer = 0;
             }

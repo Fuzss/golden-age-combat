@@ -1,6 +1,6 @@
 package fuzs.goldenagecombat.mixin;
 
-import fuzs.goldenagecombat.handler.ToolMaterials;
+import fuzs.goldenagecombat.util.ToolMaterials;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;

@@ -20,16 +20,13 @@ import java.util.function.Consumer;
 abstract class ItemStackMixin implements DataComponentHolder {
 
     @Inject(method = "addAttributeTooltips", at = @At("HEAD"), cancellable = true)
-    private void addAttributeTooltips(Consumer<Component> tooltipAdder, TooltipDisplay tooltipDisplay, @Nullable Player player, CallbackInfo callback) {
+    private void addAttributeTooltips(Consumer<Component> consumer, TooltipDisplay display, @Nullable Player player, CallbackInfo callback) {
         if (GoldenAgeCombat.CONFIG.get(ClientConfig.class).attributesStyle != ClientConfig.AttributesStyle.VANILLA) {
             callback.cancel();
         }
 
         if (GoldenAgeCombat.CONFIG.get(ClientConfig.class).attributesStyle == ClientConfig.AttributesStyle.LEGACY) {
-            AttributeTooltipHelper.addLegacyAttributeTooltips(ItemStack.class.cast(this),
-                    tooltipAdder,
-                    tooltipDisplay,
-                    player);
+            AttributeTooltipHelper.addLegacyAttributeTooltips(ItemStack.class.cast(this), consumer, display, player);
         }
     }
 }

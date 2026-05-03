@@ -32,13 +32,13 @@ abstract class PlayerMixin extends LivingEntity {
                        at = @At("RETURN"),
                        slice = @Slice(from = @At(value = "INVOKE",
                                                  target = "Lnet/minecraft/world/entity/player/Player;removeEntitiesOnShoulder()V")))
-    public boolean hurtServer(boolean hurtServer, ServerLevel serverLevel, DamageSource damageSource, float damageAmount) {
+    public boolean hurtServer(boolean hurtServer, ServerLevel level, DamageSource source, float damage) {
         if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).weakAttackKnockBack) {
             return hurtServer;
         }
 
-        if (!hurtServer && damageAmount == 0.0F && this.level().getDifficulty() != Difficulty.PEACEFUL) {
-            return super.hurtServer(serverLevel, damageSource, damageAmount);
+        if (!hurtServer && damage == 0.0F && this.level().getDifficulty() != Difficulty.PEACEFUL) {
+            return super.hurtServer(level, source, damage);
         } else {
             return hurtServer;
         }
@@ -61,7 +61,7 @@ abstract class PlayerMixin extends LivingEntity {
                                 target = "Lnet/minecraft/world/entity/player/Player;setSprinting(Z)V"))
     public boolean causeExtraKnockback(Player player, boolean isSprinting) {
         // Don't disable sprinting when attacking a target.
-        // This is mainly nice to have since you always stop to swim when attacking creatures underwater.
+        // This is mainly nice to have since you always stop swimming when attacking creatures underwater.
         if (GoldenAgeCombat.CONFIG.get(ServerConfig.class).sprintAttacks) {
             return false;
         } else {

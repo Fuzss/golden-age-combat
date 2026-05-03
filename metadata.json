@@ -1,9 +1,10 @@
 {
+    "minecraft": "26.1.2",
     "mod": {
         "id": "goldenagecombat",
         "group": "fuzs.goldenagecombat",
         "name": "Golden Age Combat",
-        "version": "21.11.0",
+        "version": "26.1.0",
         "authors": [
             "Fuzs"
         ],
@@ -36,13 +37,13 @@
     ],
     "links": [
         {
-            "name": "github",
-            "slug": "goldenagecombat"
-        },
-        {
             "name": "curseforge",
             "slug": "golden-age-combat",
             "id": "352074"
+        },
+        {
+            "name": "github",
+            "slug": "golden-age-combat"
         },
         {
             "name": "modrinth",

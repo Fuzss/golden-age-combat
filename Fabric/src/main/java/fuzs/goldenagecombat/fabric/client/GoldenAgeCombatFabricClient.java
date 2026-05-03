@@ -2,7 +2,7 @@ package fuzs.goldenagecombat.fabric.client;
 
 import fuzs.goldenagecombat.GoldenAgeCombat;
 import fuzs.goldenagecombat.client.GoldenAgeCombatClient;
-import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
+import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
 import net.fabricmc.api.ClientModInitializer;
 
 public class GoldenAgeCombatFabricClient implements ClientModInitializer {
