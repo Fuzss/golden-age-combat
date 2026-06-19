@@ -35,11 +35,11 @@ abstract class ItemInHandRendererMixin {
         }
     }
 
-    @Inject(method = "renderArmWithItem",
+    @Inject(method = "submitArmWithItem",
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;applyItemArmTransform(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V",
                      shift = At.Shift.AFTER))
-    private void renderArmWithItem(AbstractClientPlayer player, float partialTicks, float xRot, InteractionHand hand, float attack, ItemStack itemStack, float inverseArmHeight, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, CallbackInfo callback) {
+    private void submitArmWithItem(AbstractClientPlayer player, float partialTicks, float xRot, InteractionHand hand, float attack, ItemStack itemStack, float inverseArmHeight, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, CallbackInfo callback) {
         if (!GoldenAgeCombat.CONFIG.get(ClientConfig.class).interactAnimations) {
             return;
         }

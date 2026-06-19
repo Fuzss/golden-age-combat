@@ -9,6 +9,6 @@ dependencies {
 multiloader {
     mixins {
         mixin("EntityMixin", "FishingHookMixin", "FoodDataMixin", "PlayerMixin", "ToolMaterialMixin")
-        clientMixin("CameraMixin", "GuiMixin", "ItemInHandRendererMixin", "ItemStackMixin", "MinecraftMixin", "ParticleEngineMixin")
+        clientMixin("CameraMixin", "HudMixin", "ItemInHandRendererMixin", "ItemStackMixin", "MinecraftMixin", "ParticleEngineMixin")
     }
 }
