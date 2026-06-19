@@ -1,10 +1,9 @@
 package fuzs.goldenagecombat.neoforge;
 
 import fuzs.goldenagecombat.common.GoldenAgeCombat;
-import fuzs.goldenagecombat.common.data.ModDatapackRegistriesProvider;
 import fuzs.goldenagecombat.common.data.tags.ModDamageTypeTagsProvider;
+import fuzs.goldenagecombat.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
-import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
 import net.minecraft.server.packs.PackType;
 import net.neoforged.fml.common.Mod;
 
@@ -16,6 +15,6 @@ public class GoldenAgeCombatNeoForge {
         DataProviderHelper.registerDataProviders(GoldenAgeCombat.MOD_ID, ModDamageTypeTagsProvider::new);
         DataProviderHelper.registerDataProviders(GoldenAgeCombat.BOOSTED_SHARPNESS_ID,
                 PackType.SERVER_DATA,
-                ModDatapackRegistriesProvider::new);
+                ModRegistry.REGISTRY_SET_BUILDER);
     }
 }
