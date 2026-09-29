@@ -4,7 +4,7 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import fuzs.goldenagecombat.common.GoldenAgeCombat;
 import fuzs.goldenagecombat.common.config.CommonConfig;
-import fuzs.goldenagecombat.common.init.ModRegistry;
+import fuzs.goldenagecombat.common.init.ModTags;
 import fuzs.goldenagecombat.common.util.ToolComponentsHelper;
 import fuzs.goldenagecombat.common.util.ToolMaterials;
 import fuzs.puzzleslib.common.api.config.v3.serialization.ConfigDataSet;
@@ -114,7 +114,7 @@ public class ItemComponentsHandler {
                             List.of(new BlocksAttacks.DamageReduction(180.0F, Optional.empty(), 0.0F, 0.5F)),
                             new BlocksAttacks.ItemDamageFunction(0.0F, 0.0F, 0.0F),
                             Optional.of(context.lookupOrThrow(Registries.DAMAGE_TYPE)
-                                    .getOrThrow(ModRegistry.BYPASSES_SWORD_BLOCK_DAMAGE_TYPE_TAG)),
+                                    .getOrThrow(ModTags.DamageTypes.BYPASSES_SWORD_BLOCK_DAMAGE_TYPE_TAG)),
                             Optional.of(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.GENERIC_HURT)),
                             Optional.empty());
         } else {

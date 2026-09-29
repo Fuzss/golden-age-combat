@@ -2,6 +2,7 @@ package fuzs.goldenagecombat.common.handler;
 
 import fuzs.goldenagecombat.common.GoldenAgeCombat;
 import fuzs.goldenagecombat.common.config.ServerConfig;
+import fuzs.goldenagecombat.common.init.ModTags;
 import fuzs.puzzleslib.common.api.event.v1.core.EventResult;
 import fuzs.puzzleslib.common.api.event.v1.data.MutableDouble;
 import fuzs.puzzleslib.common.api.event.v1.data.MutableFloat;
@@ -68,7 +69,7 @@ public class ClassicCombatHandler {
 
     public static EventResult onPlaySoundAtPosition(Level level, Vec3 position, MutableValue<Holder<SoundEvent>> soundEvent, MutableValue<SoundSource> soundSource, MutableFloat soundVolume, MutableFloat soundPitch) {
         // disable combat update player attack sounds
-        if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).canceledAttackSounds.contains(soundEvent.get().value())) {
+        if (!soundEvent.get().is(ModTags.Sounds.SILENT_SOUND_EVENT_TAG)) {
             return EventResult.PASS;
         } else {
             return EventResult.INTERRUPT;

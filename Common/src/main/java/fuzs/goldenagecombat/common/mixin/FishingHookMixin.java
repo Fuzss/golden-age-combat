@@ -26,7 +26,7 @@ abstract class FishingHookMixin extends Projectile {
 
     @Inject(method = "onHitEntity", at = @At("TAIL"))
     protected void onHitEntity(EntityHitResult hitResult, CallbackInfo callback) {
-        if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).fishingRodKnockback) {
+        if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).fishingRod.causeKnockback) {
             return;
         }
 
@@ -39,7 +39,7 @@ abstract class FishingHookMixin extends Projectile {
 
     @Inject(method = "pullEntity", at = @At("HEAD"), cancellable = true)
     protected void pullEntity(Entity entity, CallbackInfo callback) {
-        if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).fishingRodLaunch) {
+        if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).fishingRod.launchEntities) {
             return;
         }
 
@@ -59,7 +59,7 @@ abstract class FishingHookMixin extends Projectile {
 
     @Inject(method = "retrieve", at = @At("RETURN"), cancellable = true)
     public void retrieve(CallbackInfoReturnable<Integer> callback) {
-        if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).fishingRodSlowerBreaking) {
+        if (!GoldenAgeCombat.CONFIG.get(ServerConfig.class).fishingRod.slowerBreaking) {
             return;
         }
 

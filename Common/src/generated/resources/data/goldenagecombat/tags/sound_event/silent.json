@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:entity.player.attack.crit",
+    "minecraft:entity.player.attack.knockback",
+    "minecraft:entity.player.attack.nodamage",
+    "minecraft:entity.player.attack.strong",
+    "minecraft:entity.player.attack.sweep",
+    "minecraft:entity.player.attack.weak"
+  ]
+}

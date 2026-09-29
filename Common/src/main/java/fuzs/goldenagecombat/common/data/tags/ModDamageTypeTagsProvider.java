@@ -1,6 +1,6 @@
 package fuzs.goldenagecombat.common.data.tags;
 
-import fuzs.goldenagecombat.common.init.ModRegistry;
+import fuzs.goldenagecombat.common.init.ModTags;
 import fuzs.puzzleslib.common.api.data.v3.core.DataProviderContext;
 import fuzs.puzzleslib.common.api.data.v3.tags.AbstractTagsProvider;
 import net.minecraft.core.HolderLookup;
@@ -16,6 +16,6 @@ public class ModDamageTypeTagsProvider extends AbstractTagsProvider<DamageType> 
 
     @Override
     public void addTags(HolderLookup.Provider provider) {
-        this.tag(ModRegistry.BYPASSES_SWORD_BLOCK_DAMAGE_TYPE_TAG).addTag(DamageTypeTags.BYPASSES_SHIELD);
+        this.tag(ModTags.DamageTypes.BYPASSES_SWORD_BLOCK_DAMAGE_TYPE_TAG).addTag(DamageTypeTags.BYPASSES_SHIELD);
     }
 }

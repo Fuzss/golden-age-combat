@@ -5,7 +5,6 @@ import fuzs.goldenagecombat.common.config.CommonConfig;
 import fuzs.goldenagecombat.common.config.ServerConfig;
 import fuzs.goldenagecombat.common.handler.ClassicCombatHandler;
 import fuzs.goldenagecombat.common.handler.ItemComponentsHandler;
-import fuzs.goldenagecombat.common.init.ModRegistry;
 import fuzs.puzzleslib.common.api.config.v3.ConfigHolder;
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.common.api.core.v1.context.ItemComponentsContext;
@@ -32,7 +31,6 @@ public class GoldenAgeCombat implements ModConstructor {
 
     @Override
     public void onConstructMod() {
-        ModRegistry.bootstrap();
         registerEventHandlers();
     }
 

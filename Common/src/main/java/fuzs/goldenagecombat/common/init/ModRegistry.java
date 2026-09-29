@@ -1,15 +1,11 @@
 package fuzs.goldenagecombat.common.init;
 
-import fuzs.goldenagecombat.common.GoldenAgeCombat;
 import fuzs.puzzleslib.common.api.init.v3.registry.ContentRegistrationHelper;
-import fuzs.puzzleslib.common.api.init.v3.tags.TagFactory;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -19,13 +15,6 @@ import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
 
 public class ModRegistry {
-    static final TagFactory TAGS = TagFactory.make(GoldenAgeCombat.MOD_ID);
-    public static final TagKey<DamageType> BYPASSES_SWORD_BLOCK_DAMAGE_TYPE_TAG = TAGS.registerDamageTypeTag(
-            "bypasses_sword_block");
-
-    public static void bootstrap() {
-        // NO-OP
-    }
 
     /**
      * @see Enchantments#bootstrap(BootstrapContext)
