@@ -1,11 +1,9 @@
 package fuzs.goldenagecombat.common.init;
 
 import fuzs.goldenagecombat.common.GoldenAgeCombat;
-import fuzs.puzzleslib.common.api.data.v2.AbstractDatapackRegistriesProvider;
-import fuzs.puzzleslib.common.api.init.v3.registry.RegistryManager;
+import fuzs.puzzleslib.common.api.init.v3.registry.ContentRegistrationHelper;
 import fuzs.puzzleslib.common.api.init.v3.tags.TagFactory;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.EnchantmentTags;
@@ -21,10 +19,6 @@ import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
 
 public class ModRegistry {
-    public static final RegistrySetBuilder REGISTRY_SET_BUILDER = new RegistrySetBuilder().add(Registries.ENCHANTMENT,
-            ModRegistry::bootstrapEnchantments);
-    static final RegistryManager REGISTRIES = RegistryManager.from(GoldenAgeCombat.MOD_ID);
-
     static final TagFactory TAGS = TagFactory.make(GoldenAgeCombat.MOD_ID);
     public static final TagKey<DamageType> BYPASSES_SWORD_BLOCK_DAMAGE_TYPE_TAG = TAGS.registerDamageTypeTag(
             "bypasses_sword_block");
@@ -39,7 +33,7 @@ public class ModRegistry {
     public static void bootstrapEnchantments(BootstrapContext<Enchantment> context) {
         HolderGetter<Item> itemLookup = context.lookup(Registries.ITEM);
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
-        AbstractDatapackRegistriesProvider.registerEnchantment(context,
+        ContentRegistrationHelper.registerEnchantment(context,
                 Enchantments.SHARPNESS,
                 Enchantment.enchantment(Enchantment.definition(itemLookup.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
                                 itemLookup.getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE),

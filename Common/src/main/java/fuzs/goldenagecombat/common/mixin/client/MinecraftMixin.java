@@ -72,7 +72,9 @@ abstract class MinecraftMixin {
                         return;
                     }
 
-                    this.player.swing(InteractionHand.MAIN_HAND);
+                    this.player.swing(InteractionHand.MAIN_HAND,
+                            this.player.getItemInHand(InteractionHand.MAIN_HAND).getAttackAnimation(),
+                            false);
                 }
             }
         }

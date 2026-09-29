@@ -15,10 +15,6 @@ import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
-
 public class ClientCooldownHandler {
     private static final Component ATTACK_INDICATOR_TOOLTIP = Component.literal(String.format(
             "Attack Indicator has been disabled by %s mod.",
@@ -48,7 +44,7 @@ public class ClientCooldownHandler {
         }
     }
 
-    public static void onAfterInit(VideoSettingsScreen screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
+    public static void onAfterInit(VideoSettingsScreen screen, int screenWidth, int screenHeight) {
         if (!GoldenAgeCombat.CONFIG.getHolder(ServerConfig.class).isAvailable() || !GoldenAgeCombat.CONFIG.get(
                 CommonConfig.class).removeAttackCooldown) {
             return;
