@@ -5,3 +5,9 @@ plugins {
 dependencies {
     modApi(sharedLibs.puzzleslib.neoforge)
 }
+
+multiloader {
+    mixins {
+        mixin("ResourceManagerRegistryLoadTaskNeoForgeMixin")
+    }
+}

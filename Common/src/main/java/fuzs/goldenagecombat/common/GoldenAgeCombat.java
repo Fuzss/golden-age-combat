@@ -8,12 +8,10 @@ import fuzs.goldenagecombat.common.handler.ItemComponentsHandler;
 import fuzs.puzzleslib.common.api.config.v3.ConfigHolder;
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.common.api.core.v1.context.ItemComponentsContext;
-import fuzs.puzzleslib.common.api.core.v1.context.PackRepositorySourcesContext;
 import fuzs.puzzleslib.common.api.event.v1.entity.ProjectileImpactCallback;
 import fuzs.puzzleslib.common.api.event.v1.entity.living.LivingKnockBackCallback;
 import fuzs.puzzleslib.common.api.event.v1.entity.living.UseItemEvents;
 import fuzs.puzzleslib.common.api.event.v1.level.PlaySoundEvents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +25,6 @@ public class GoldenAgeCombat implements ModConstructor {
             .client(ClientConfig.class)
             .common(CommonConfig.class)
             .server(ServerConfig.class);
-    public static final Identifier BOOSTED_SHARPNESS_ID = id("boosted_sharpness");
 
     @Override
     public void onConstructMod() {
@@ -39,11 +36,6 @@ public class GoldenAgeCombat implements ModConstructor {
         UseItemEvents.FINISH.register(ClassicCombatHandler::onUseItemFinish);
         LivingKnockBackCallback.EVENT.register(ClassicCombatHandler::onLivingKnockBack);
         ProjectileImpactCallback.EVENT.register(ClassicCombatHandler::onProjectileImpact);
-    }
-
-    @Override
-    public void onAddDataPackFinders(PackRepositorySourcesContext context) {
-        context.registerBuiltInPack(BOOSTED_SHARPNESS_ID, Component.literal("Boosted Sharpness"), true);
     }
 
     @Override
