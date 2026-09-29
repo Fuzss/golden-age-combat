@@ -22,6 +22,9 @@ public class CommonConfig implements ConfigCore {
             description = "Revert weapon and tool attack damage to legacy values.",
             worldRestart = true)
     public boolean oldAttackDamage = true;
+    @Config(description = "Boost the sharpness enchantment to 1.25 damage points per level instead of just 0.5.",
+            worldRestart = true)
+    public boolean boostSharpness = false;
     @Config(name = "attack_damage_overrides", description = {
             "Overrides for setting and balancing attack damage values of items.",
             "Takes precedence over any changes made by \"legacy_attack_damage\" option, but requires it to be enabled.",
