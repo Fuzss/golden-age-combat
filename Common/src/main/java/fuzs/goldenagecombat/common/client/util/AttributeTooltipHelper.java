@@ -1,4 +1,4 @@
-package fuzs.goldenagecombat.common.util;
+package fuzs.goldenagecombat.common.client.util;
 
 import fuzs.goldenagecombat.common.world.item.component.LegacyItemAttributeModifiersDisplay;
 import net.minecraft.ChatFormatting;
@@ -46,7 +46,7 @@ public class AttributeTooltipHelper {
         }
     }
 
-    static int getShownEquipmentSlotGroups(ItemStack itemStack) {
+    private static int getShownEquipmentSlotGroups(ItemStack itemStack) {
         int shownEquipmentSlotGroups = 0;
         for (EquipmentSlotGroup equipmentSlotGroup : EquipmentSlotGroup.values()) {
             MutableBoolean mutableBoolean = new MutableBoolean();

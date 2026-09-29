@@ -1,8 +1,8 @@
-package fuzs.goldenagecombat.common.mixin.client;
+package fuzs.goldenagecombat.fabric.mixin.client;
 
 import fuzs.goldenagecombat.common.GoldenAgeCombat;
+import fuzs.goldenagecombat.common.client.util.AttributeTooltipHelper;
 import fuzs.goldenagecombat.common.config.ClientConfig;
-import fuzs.goldenagecombat.common.util.AttributeTooltipHelper;
 import net.minecraft.core.component.DataComponentHolder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -17,8 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
-abstract class ItemStackMixin implements DataComponentHolder {
-
+abstract class ItemStackFabricMixin implements DataComponentHolder {
     @Inject(method = "addAttributeTooltips", at = @At("HEAD"), cancellable = true)
     private void addAttributeTooltips(Consumer<Component> consumer, TooltipDisplay display, @Nullable Player player, CallbackInfo callback) {
         if (GoldenAgeCombat.CONFIG.get(ClientConfig.class).attributesStyle != ClientConfig.AttributesStyle.VANILLA) {
